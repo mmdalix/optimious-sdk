@@ -49,6 +49,9 @@ export class OptimiousClient {
           console.error('Failed to fetch parameters in interval:', error);
         }
       }, this.intervalSeconds * 1000);
+      
+      // Don't block process exit - interval will run as long as process is alive
+      this.intervalId.unref();
     } catch (error) {
       throw new Error(`Initialization failed: ${error instanceof Error ? error.message : String(error)}`);
     }
