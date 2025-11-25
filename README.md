@@ -14,12 +14,18 @@ npm install optimious-sdk
 import { OptimiousClient } from 'optimious-sdk';
 
 const client = new OptimiousClient({
-  baseUrl: 'https://api.optimious.com',
-  apiKey: 'your-api-key'
+  fetchUrl: 'https://api.optimious.com/parameters',
+  intervalSeconds: 30 // optional, defaults to 30
 });
 
-// Use the client
-await client.ping();
+// Initialize the client (fetches parameters and sets up polling)
+await client.init();
+
+// Get a parameter value
+const value = client.getParam('myParameter');
+
+// Clean up when done
+client.destroy();
 ```
 
 ## Development
